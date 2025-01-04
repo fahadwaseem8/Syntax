@@ -38,39 +38,11 @@ const Home = () => {
       setLoading(true);
       setOutput("Connecting to virtual compiler...");
 
-      const response = await axios.post(
-        config.rapidApi.url,
-        {
-          langEnum: [
-            "php",
-            "python",
-            "c",
-            "c_cpp",
-            "csharp",
-            "kotlin",
-            "golang",
-            "r",
-            "java",
-            "typescript",
-            "nodejs",
-            "ruby",
-            "perl",
-            "swift",
-            "fortran",
-            "bash",
-          ],
-          lang: selectedLanguage.name.toLowerCase(),
-          code,
-          input,
-        },
-        {
-          headers: {
-            "x-compile": "rapidapi",
-            "X-RapidAPI-Key": config.rapidApi.key,
-            "X-RapidAPI-Host": config.rapidApi.host,
-          },
-        }
-      );
+      const response = await axios.post("/api/execute", {
+        lang: selectedLanguage.name,
+        code,
+        input,
+      });
 
       setOutput(response.data.output);
     } catch (error) {
