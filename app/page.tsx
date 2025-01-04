@@ -16,8 +16,23 @@ import { Language } from "@/types";
 import { config } from "@/config/env";
 import Logo from "@/components/Logo";
 
+const getHelloWorldExample = (languageName: string): string => {
+  switch (languageName) {
+    case "JavaScript":
+      return 'console.log("Hello, World!");';
+    case "Python":
+      return 'print("Hello, World!")';
+    case "C++":
+      return '#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}';
+    case "Java":
+      return 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}';
+    default:
+      return "// Write your code here";
+  }
+};
+
 const Home = () => {
-  const [code, setCode] = useState("// Write your code here");
+  const [code, setCode] = useState(getHelloWorldExample("JavaScript"));
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -73,6 +88,11 @@ const Home = () => {
     }
   };
 
+  const handleLanguageChange = (language: Language) => {
+    setSelectedLanguage(language);
+    setCode(getHelloWorldExample(language.name));
+  };
+
   return (
     <div
       className={`min-h-screen flex flex-col ${
@@ -103,7 +123,7 @@ const Home = () => {
                 selectedLanguage={selectedLanguage}
                 languages={languages}
                 onChange={setCode}
-                onLanguageChange={setSelectedLanguage}
+                onLanguageChange={handleLanguageChange}
               />
               <InputSection
                 input={input}

@@ -2,10 +2,27 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { config } from "@/config/env";
 
+// Add a mapping for display names to API language codes
+const languageMap: { [key: string]: string } = {
+  JavaScript: "nodejs",
+  Python: "python",
+  "C++": "c_cpp",
+  Java: "java",
+};
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { lang, code, input } = body;
+
+    // Map the display language name to the API language code
+    const apiLang = languageMap[lang];
+    if (!apiLang) {
+      return NextResponse.json(
+        { error: "Unsupported programming language" },
+        { status: 400 }
+      );
+    }
 
     const response = await axios.post(
       config.rapidApi.url,
@@ -28,7 +45,7 @@ export async function POST(request: Request) {
           "fortran",
           "bash",
         ],
-        lang: lang.toLowerCase(),
+        lang: apiLang,
         code,
         input,
       },
