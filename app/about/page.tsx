@@ -37,7 +37,7 @@ const AboutPage = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${
+      className={`flex min-h-screen flex-col ${
         isDarkMode ? "dark bg-gray-900" : "bg-gray-50"
       }`}
     >
@@ -46,18 +46,18 @@ const AboutPage = () => {
         toggleTheme={() => setIsDarkMode(!isDarkMode)}
       />
 
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="container mx-auto flex-grow px-4 py-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-4">
+        <div className="mb-16 text-center">
+          <div className="mb-4 flex justify-center">
             <Logo
-              className={`w-16 h-16 ${
+              className={`h-16 w-16 ${
                 isDarkMode ? "text-white" : "text-gray-800"
               }`}
             />
           </div>
           <h1
-            className={`text-4xl font-bold mb-4 ${
+            className={`mb-4 text-4xl font-bold ${
               isDarkMode ? "text-white" : "text-gray-800"
             }`}
           >
@@ -66,7 +66,7 @@ const AboutPage = () => {
           <p
             className={`text-xl ${
               isDarkMode ? "text-gray-300" : "text-gray-600"
-            } max-w-2xl mx-auto`}
+            } mx-auto max-w-2xl`}
           >
             A powerful, cloud-based code editor that lets you write, compile,
             and run code in your browser.
@@ -74,19 +74,19 @@ const AboutPage = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2">
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`p-6 rounded-lg border ${
+              className={`rounded-lg border p-6 ${
                 isDarkMode
-                  ? "border-gray-700 bg-gray-800 hover:bg-gray-750"
+                  ? "hover:bg-gray-750 border-gray-700 bg-gray-800"
                   : "border-gray-200 bg-white hover:bg-gray-50"
               } transition-all duration-300 ease-in-out`}
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
+              <div className="mb-4 text-4xl">{feature.icon}</div>
               <h3
-                className={`text-xl font-semibold mb-2 ${
+                className={`mb-2 text-xl font-semibold ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
@@ -108,13 +108,13 @@ const AboutPage = () => {
           } border ${isDarkMode ? "border-gray-700" : "border-gray-200"}`}
         >
           <h2
-            className={`text-2xl font-bold mb-6 ${
+            className={`mb-6 text-2xl font-bold ${
               isDarkMode ? "text-white" : "text-gray-800"
             }`}
           >
             Built With Modern Technology
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {[
               { name: "Next.js", description: "React Framework" },
               { name: "TypeScript", description: "Type-Safe JavaScript" },
@@ -123,7 +123,7 @@ const AboutPage = () => {
             ].map((tech, index) => (
               <div key={index} className="text-center">
                 <h3
-                  className={`font-semibold mb-1 ${
+                  className={`mb-1 font-semibold ${
                     isDarkMode ? "text-white" : "text-gray-800"
                   }`}
                 >

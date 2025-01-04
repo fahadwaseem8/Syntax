@@ -22,14 +22,14 @@ export const CodeEditorSection = ({
   onLanguageChange,
 }: CodeEditorSectionProps) => (
   <div
-    className={`rounded-lg overflow-hidden border ${
+    className={`overflow-hidden rounded-lg border ${
       isDarkMode ? "border-gray-700" : "border-gray-200"
     }`}
   >
     <div
       className={`p-3 ${
         isDarkMode ? "bg-gray-800" : "bg-gray-100"
-      } flex justify-between items-center`}
+      } flex items-center justify-between`}
     >
       <h2
         className={`font-semibold ${

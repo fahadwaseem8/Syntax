@@ -10,7 +10,7 @@ export const InputSection = ({
   onChange,
 }: InputSectionProps) => (
   <div
-    className={`rounded-lg overflow-hidden border ${
+    className={`overflow-hidden rounded-lg border ${
       isDarkMode ? "border-gray-700" : "border-gray-200"
     }`}
   >
@@ -26,7 +26,7 @@ export const InputSection = ({
     <textarea
       value={input}
       onChange={(e) => onChange(e.target.value)}
-      className={`w-full h-32 p-4 resize-none focus:outline-none ${
+      className={`h-32 w-full resize-none p-4 focus:outline-none ${
         isDarkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-800"
       }`}
       placeholder="Enter input here..."

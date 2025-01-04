@@ -12,7 +12,7 @@ export const OutputSection = ({
   output,
 }: OutputSectionProps) => (
   <div
-    className={`rounded-lg overflow-hidden border ${
+    className={`overflow-hidden rounded-lg border ${
       isDarkMode ? "border-gray-700" : "border-gray-200"
     }`}
   >
