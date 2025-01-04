@@ -45,13 +45,29 @@ const Home = () => {
         input,
       });
 
-      setOutput(response.data.output);
+      if (response.data.error) {
+        setOutput(
+          `Compilation Error: ${JSON.stringify(response.data.error, null, 2)}`
+        );
+      } else {
+        setOutput(response.data.output);
+      }
     } catch (error) {
-      setOutput(
-        `Error: ${
-          error instanceof Error ? error.message : "An unknown error occurred"
-        }`
-      );
+      if (axios.isAxiosError(error) && error.response?.data) {
+        setOutput(
+          `Compilation Error: ${JSON.stringify(
+            error.response.data.error,
+            null,
+            2
+          )}`
+        );
+      } else {
+        setOutput(
+          `Error: ${
+            error instanceof Error ? error.message : "An unknown error occurred"
+          }`
+        );
+      }
     } finally {
       setLoading(false);
     }

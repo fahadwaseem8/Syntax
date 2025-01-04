@@ -39,7 +39,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
           {/* Links */}
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a
-              href="https://github.com"
+              href="https://github.com/fahadwaseem8/Syntaxio"
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm ${
@@ -55,22 +55,6 @@ const Footer = ({ isDarkMode }: FooterProps) => {
               } hover:underline`}
             >
               About
-            </a>
-            <a
-              href="#"
-              className={`text-sm ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              } hover:underline`}
-            >
-              Terms
-            </a>
-            <a
-              href="#"
-              className={`text-sm ${
-                isDarkMode ? "text-gray-400" : "text-gray-500"
-              } hover:underline`}
-            >
-              Privacy
             </a>
           </div>
         </div>

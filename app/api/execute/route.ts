@@ -43,6 +43,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json(response.data);
   } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      // Forward the error message from RapidAPI
+      return NextResponse.json(
+        { error: error.response.data },
+        { status: error.response.status }
+      );
+    }
+
     return NextResponse.json(
       {
         error:
