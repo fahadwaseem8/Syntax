@@ -99,7 +99,7 @@ const Home = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${
+      className={`flex min-h-screen flex-col ${
         isDarkMode ? "dark bg-gray-900" : "bg-gray-50"
       }`}
     >
@@ -109,7 +109,7 @@ const Home = () => {
       />
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex justify-between items-center mb-8">
+          <div className="mb-8 flex items-center justify-between">
             <h1
               className={`text-2xl font-bold ${
                 isDarkMode ? "text-white" : "text-gray-800"
@@ -119,7 +119,7 @@ const Home = () => {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="space-y-6">
               <CodeEditorSection
                 code={code}
@@ -148,7 +148,7 @@ const Home = () => {
               disabled={loading}
               className={`px-6 py-3 ${
                 loading ? "bg-gray-500" : "bg-green-600 hover:bg-green-700"
-              } text-white rounded-lg font-semibold transition-colors flex items-center gap-2`}
+              } flex items-center gap-2 rounded-lg font-semibold text-white transition-colors`}
             >
               {loading ? (
                 <>
@@ -157,7 +157,7 @@ const Home = () => {
                 </>
               ) : (
                 <>
-                  Run Code <Logo className="w-4 h-4 ml-1" />
+                  Run Code <Logo className="ml-1 h-4 w-4" />
                 </>
               )}
             </button>

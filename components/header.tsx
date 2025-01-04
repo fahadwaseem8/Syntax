@@ -23,7 +23,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
     return (
       <Link
         href={href}
-        className={`px-4 py-2 rounded-lg transition-colors ${
+        className={`rounded-lg px-4 py-2 transition-colors ${
           isDarkMode
             ? `${
                 isActive
@@ -53,7 +53,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
           <div className="flex items-center space-x-6">
             <Link href="/" className="flex items-center space-x-2">
               <Logo
-                className={`w-8 h-8 ${
+                className={`h-8 w-8 ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               />
@@ -65,7 +65,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
                 Syntaxio
               </span>
             </Link>
-            <nav className="hidden md:flex space-x-2">
+            <nav className="hidden space-x-2 md:flex">
               <NavLink href="/">Editor</NavLink>
               <NavLink href="/about">About</NavLink>
             </nav>
@@ -74,7 +74,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
           <div className="flex items-center space-x-4">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg ${
+              className={`rounded-lg p-2 ${
                 isDarkMode
                   ? "bg-gray-800 text-yellow-400 hover:bg-gray-700"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -86,7 +86,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
         </div>
 
         {/* Mobile Navigation */}
-        <nav className="md:hidden flex space-x-2 mt-4">
+        <nav className="mt-4 flex space-x-2 md:hidden">
           <NavLink href="/">Editor</NavLink>
           <NavLink href="/about">About</NavLink>
         </nav>

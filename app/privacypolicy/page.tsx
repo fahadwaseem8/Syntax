@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div
-      className={`min-h-screen flex flex-col ${
+      className={`flex min-h-screen flex-col ${
         isDarkMode ? "dark bg-gray-900" : "bg-gray-50"
       }`}
     >
@@ -18,10 +18,10 @@ const PrivacyPolicy = () => {
         toggleTheme={() => setIsDarkMode(!isDarkMode)}
       />
 
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+      <main className="container mx-auto flex-grow px-4 py-8">
+        <div className="mx-auto max-w-4xl">
           <h1
-            className={`text-4xl font-bold mb-8 ${
+            className={`mb-8 text-4xl font-bold ${
               isDarkMode ? "text-white" : "text-gray-800"
             }`}
           >
@@ -42,7 +42,7 @@ const PrivacyPolicy = () => {
 
             <section>
               <h2
-                className={`text-2xl font-semibold mb-4 ${
+                className={`mb-4 text-2xl font-semibold ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
                 The Application collects information when you download and use
                 it. This information may include information such as:
               </p>
-              <ul className="list-disc pl-6 space-y-2">
+              <ul className="list-disc space-y-2 pl-6">
                 <li>
                   Your device's Internet Protocol address (e.g. IP address)
                 </li>
@@ -73,7 +73,7 @@ const PrivacyPolicy = () => {
 
             <section>
               <h2
-                className={`text-2xl font-semibold mb-4 ${
+                className={`mb-4 text-2xl font-semibold ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
@@ -99,7 +99,7 @@ const PrivacyPolicy = () => {
 
             <section>
               <h2
-                className={`text-2xl font-semibold mb-4 ${
+                className={`mb-4 text-2xl font-semibold ${
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >

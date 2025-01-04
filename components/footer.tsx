@@ -12,11 +12,11 @@ const Footer = ({ isDarkMode }: FooterProps) => {
   return (
     <footer
       className={`w-full ${
-        isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+        isDarkMode ? "border-gray-700 bg-gray-800" : "border-gray-200 bg-white"
       } border-t`}
     >
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col md:flex-row items-center justify-between">
+        <div className="flex flex-col items-center justify-between md:flex-row">
           {/* Logo and Copyright */}
           <div className="flex items-center space-x-2">
             <Logo className={isDarkMode ? "text-white" : "text-gray-800"} />
@@ -37,7 +37,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
           </div>
 
           {/* Links */}
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="mt-4 flex space-x-6 md:mt-0">
             <a
               href="https://github.com/fahadwaseem8/Syntaxio"
               target="_blank"
