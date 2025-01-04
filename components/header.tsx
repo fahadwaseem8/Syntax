@@ -1,75 +1,95 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 
-interface HeaderProps {
+type HeaderProps = {
   isDarkMode: boolean;
   toggleTheme: () => void;
-}
+};
 
 const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
+  const pathname = usePathname();
+
+  const NavLink = ({
+    href,
+    children,
+  }: {
+    href: string;
+    children: React.ReactNode;
+  }) => {
+    const isActive = pathname === href;
+    return (
+      <Link
+        href={href}
+        className={`px-4 py-2 rounded-lg transition-colors ${
+          isDarkMode
+            ? `${
+                isActive
+                  ? "bg-gray-700 text-white"
+                  : "text-gray-300 hover:bg-gray-800"
+              }`
+            : `${
+                isActive
+                  ? "bg-gray-200 text-gray-800"
+                  : "text-gray-600 hover:bg-gray-100"
+              }`
+        }`}
+      >
+        {children}
+      </Link>
+    );
+  };
+
   return (
     <header
-      className={`w-full ${
-        isDarkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
-      } border-b`}
+      className={`border-b ${
+        isDarkMode ? "border-gray-700 bg-gray-900" : "border-gray-200 bg-white"
+      }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo and Navigation */}
-          <div className="flex items-center space-x-8">
-            <Link
-              href="/"
-              className={`flex items-center space-x-2 text-xl font-bold ${
-                isDarkMode ? "text-white" : "text-gray-800"
-              }`}
-            >
-              <Logo className={isDarkMode ? "text-white" : "text-gray-800"} />
-              <span>Syntaxio</span>
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-6">
+            <Link href="/" className="flex items-center space-x-2">
+              <Logo
+                className={`w-8 h-8 ${
+                  isDarkMode ? "text-white" : "text-gray-800"
+                }`}
+              />
+              <span
+                className={`text-xl font-bold ${
+                  isDarkMode ? "text-white" : "text-gray-800"
+                }`}
+              >
+                Code Editor
+              </span>
             </Link>
-            <nav className="hidden md:flex space-x-6">
-              <Link
-                href="/code"
-                className={`${
-                  isDarkMode
-                    ? "text-gray-300 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
-                } transition-colors`}
-              >
-                Editor
-              </Link>
-              <Link
-                href="/templates"
-                className={`${
-                  isDarkMode
-                    ? "text-gray-300 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
-                } transition-colors`}
-              >
-                Templates
-              </Link>
-              <Link
-                href="/about"
-                className={`${
-                  isDarkMode
-                    ? "text-gray-300 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
-                } transition-colors`}
-              >
-                About
-              </Link>
+            <nav className="hidden md:flex space-x-2">
+              <NavLink href="/">Editor</NavLink>
+              <NavLink href="/about">About</NavLink>
             </nav>
           </div>
 
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="px-3 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-          >
-            {isDarkMode ? "☀️" : "🌙"}
-          </button>
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg ${
+                isDarkMode
+                  ? "bg-gray-800 text-yellow-400 hover:bg-gray-700"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {isDarkMode ? "🌞" : "🌙"}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation */}
+        <nav className="md:hidden flex space-x-2 mt-4">
+          <NavLink href="/">Editor</NavLink>
+          <NavLink href="/about">About</NavLink>
+        </nav>
       </div>
     </header>
   );
