@@ -1,5 +1,7 @@
 "use client";
 
+import Logo from "./Logo";
+
 interface FooterProps {
   isDarkMode: boolean;
 }
@@ -17,6 +19,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
         <div className="flex flex-col md:flex-row items-center justify-between">
           {/* Logo and Copyright */}
           <div className="flex items-center space-x-2">
+            <Logo className={isDarkMode ? "text-white" : "text-gray-800"} />
             <span
               className={`font-semibold ${
                 isDarkMode ? "text-white" : "text-gray-800"

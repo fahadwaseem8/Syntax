@@ -14,6 +14,7 @@ import { OutputSection } from "@/components/OutputSection";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Language } from "@/types";
 import { config } from "@/config/env";
+import Logo from "@/components/Logo";
 
 const Home = () => {
   const [code, setCode] = useState("// Write your code here");
@@ -116,7 +117,7 @@ const Home = () => {
                 </>
               ) : (
                 <>
-                  Run Code <span className="ml-1">▶️</span>
+                  Run Code <Logo className="w-4 h-4 ml-1" />
                 </>
               )}
             </button>

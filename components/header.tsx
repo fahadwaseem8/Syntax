@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Logo from "./Logo";
 
 interface HeaderProps {
   isDarkMode: boolean;
@@ -20,11 +21,12 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
           <div className="flex items-center space-x-8">
             <Link
               href="/"
-              className={`text-xl font-bold ${
+              className={`flex items-center space-x-2 text-xl font-bold ${
                 isDarkMode ? "text-white" : "text-gray-800"
               }`}
             >
-              Syntaxio
+              <Logo className={isDarkMode ? "text-white" : "text-gray-800"} />
+              <span>Syntaxio</span>
             </Link>
             <nav className="hidden md:flex space-x-6">
               <Link
