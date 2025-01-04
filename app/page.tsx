@@ -1,101 +1,195 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+import { dracula } from "@uiw/codemirror-theme-dracula";
+import { githubLight } from "@uiw/codemirror-theme-github";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { python } from "@codemirror/lang-python";
+import { cpp } from "@codemirror/lang-cpp";
+import { java } from "@codemirror/lang-java";
+
+type Language = {
+  name: string;
+  extension: any;
+};
+
+const Home = () => {
+  const [code, setCode] = useState("// Write your code here");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>({
+    name: "JavaScript",
+    extension: javascript,
+  });
+
+  const languages: Language[] = [
+    { name: "JavaScript", extension: javascript },
+    { name: "Python", extension: python },
+    { name: "C++", extension: cpp },
+    { name: "Java", extension: java },
+  ];
+
+  const onChange = (value: string) => {
+    setCode(value);
+  };
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div
+      className={`min-h-screen flex flex-col ${
+        isDarkMode ? "dark bg-gray-900" : "bg-gray-50"
+      }`}
+    >
+      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-8">
+            <h1
+              className={`text-2xl font-bold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
+            >
+              Online Code Editor
+            </h1>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Left Column */}
+            <div className="space-y-6">
+              {/* Code Editor */}
+              <div
+                className={`rounded-lg overflow-hidden border ${
+                  isDarkMode ? "border-gray-700" : "border-gray-200"
+                }`}
+              >
+                <div
+                  className={`p-3 ${
+                    isDarkMode ? "bg-gray-800" : "bg-gray-100"
+                  } flex justify-between items-center`}
+                >
+                  <h2
+                    className={`font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    Code Editor
+                  </h2>
+                  <select
+                    value={selectedLanguage.name}
+                    onChange={(e) => {
+                      const lang = languages.find(
+                        (l) => l.name === e.target.value
+                      );
+                      if (lang) setSelectedLanguage(lang);
+                    }}
+                    className={`px-3 py-1 rounded-md ${
+                      isDarkMode
+                        ? "bg-gray-700 text-white border-gray-600"
+                        : "bg-white text-gray-800 border-gray-300"
+                    } border focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  >
+                    {languages.map((lang) => (
+                      <option key={lang.name} value={lang.name}>
+                        {lang.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <CodeMirror
+                  value={code}
+                  height="400px"
+                  theme={isDarkMode ? dracula : githubLight}
+                  extensions={[selectedLanguage.extension()]}
+                  onChange={onChange}
+                />
+              </div>
+
+              {/* Input Box */}
+              <div
+                className={`rounded-lg overflow-hidden border ${
+                  isDarkMode ? "border-gray-700" : "border-gray-200"
+                }`}
+              >
+                <div
+                  className={`p-3 ${
+                    isDarkMode ? "bg-gray-800" : "bg-gray-100"
+                  }`}
+                >
+                  <h2
+                    className={`font-semibold ${
+                      isDarkMode ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    Input
+                  </h2>
+                </div>
+                <textarea
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  className={`w-full h-32 p-4 resize-none focus:outline-none ${
+                    isDarkMode
+                      ? "bg-gray-800 text-gray-100"
+                      : "bg-white text-gray-800"
+                  }`}
+                  placeholder="Enter input here..."
+                />
+              </div>
+            </div>
+
+            {/* Right Column - Output */}
+            <div
+              className={`rounded-lg overflow-hidden border ${
+                isDarkMode ? "border-gray-700" : "border-gray-200"
+              }`}
+            >
+              <div
+                className={`p-3 ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}
+              >
+                <h2
+                  className={`font-semibold ${
+                    isDarkMode ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Output
+                </h2>
+              </div>
+              <div
+                className={`h-[calc(100%-48px)] p-4 ${
+                  isDarkMode
+                    ? "bg-gray-800 text-gray-100"
+                    : "bg-white text-gray-800"
+                }`}
+              >
+                {output || "Output will appear here..."}
+              </div>
+            </div>
+          </div>
+
+          {/* Run Button */}
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                // Add your code execution logic here
+                setOutput("Code execution result will appear here");
+              }}
+              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+            >
+              Run Code ▶️
+            </button>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <Footer isDarkMode={isDarkMode} />
     </div>
   );
-}
+};
+
+export default Home;
