@@ -8,6 +8,7 @@ const languageMap: { [key: string]: string } = {
   Python: "python",
   "C++": "c_cpp",
   Java: "java",
+  Go: "golang",
 };
 
 export async function POST(request: Request) {

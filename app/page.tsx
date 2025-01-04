@@ -5,6 +5,7 @@ import { javascript } from "@codemirror/lang-javascript";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
 import { java } from "@codemirror/lang-java";
+import { go } from "@codemirror/lang-go";
 import axios from "axios";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
@@ -26,6 +27,8 @@ const getHelloWorldExample = (languageName: string): string => {
       return '#include <iostream>\n\nint main() {\n    std::cout << "Hello, World!" << std::endl;\n    return 0;\n}';
     case "Java":
       return 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello, World!");\n    }\n}';
+    case "Go":
+      return 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello, World!")\n}';
     default:
       return "// Write your code here";
   }
@@ -47,6 +50,7 @@ const Home = () => {
     { name: "Python", extension: python },
     { name: "C++", extension: cpp },
     { name: "Java", extension: java },
+    { name: "Go", extension: go },
   ];
 
   const executeCode = async () => {
