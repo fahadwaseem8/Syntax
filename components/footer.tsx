@@ -49,12 +49,20 @@ const Footer = ({ isDarkMode }: FooterProps) => {
               GitHub
             </a>
             <a
-              href="#"
+              href="/about"
               className={`text-sm ${
                 isDarkMode ? "text-gray-400" : "text-gray-500"
               } hover:underline`}
             >
               About
+            </a>
+            <a
+              href="/privacypolicy"
+              className={`text-sm ${
+                isDarkMode ? "text-gray-400" : "text-gray-500"
+              } hover:underline`}
+            >
+              Privacy Policy
             </a>
           </div>
         </div>
