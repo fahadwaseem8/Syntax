@@ -1,20 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import CodeMirror from "@uiw/react-codemirror";
+import { useState } from "react";
 import { javascript } from "@codemirror/lang-javascript";
-import { dracula } from "@uiw/codemirror-theme-dracula";
-import { githubLight } from "@uiw/codemirror-theme-github";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import { python } from "@codemirror/lang-python";
 import { cpp } from "@codemirror/lang-cpp";
 import { java } from "@codemirror/lang-java";
-
-type Language = {
-  name: string;
-  extension: any;
-};
+import axios from "axios";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import { CodeEditorSection } from "@/components/CodeEditorSection";
+import { InputSection } from "@/components/InputSection";
+import { OutputSection } from "@/components/OutputSection";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
+import { Language } from "@/types";
+import { config } from "@/config/env";
 
 const Home = () => {
   const [code, setCode] = useState("// Write your code here");
@@ -25,6 +24,7 @@ const Home = () => {
     name: "JavaScript",
     extension: javascript,
   });
+  const [loading, setLoading] = useState(false);
 
   const languages: Language[] = [
     { name: "JavaScript", extension: javascript },
@@ -33,12 +33,55 @@ const Home = () => {
     { name: "Java", extension: java },
   ];
 
-  const onChange = (value: string) => {
-    setCode(value);
-  };
+  const executeCode = async () => {
+    try {
+      setLoading(true);
+      setOutput("Connecting to virtual compiler...");
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+      const response = await axios.post(
+        config.rapidApi.url,
+        {
+          langEnum: [
+            "php",
+            "python",
+            "c",
+            "c_cpp",
+            "csharp",
+            "kotlin",
+            "golang",
+            "r",
+            "java",
+            "typescript",
+            "nodejs",
+            "ruby",
+            "perl",
+            "swift",
+            "fortran",
+            "bash",
+          ],
+          lang: selectedLanguage.name.toLowerCase(),
+          code,
+          input,
+        },
+        {
+          headers: {
+            "x-compile": "rapidapi",
+            "X-RapidAPI-Key": config.rapidApi.key,
+            "X-RapidAPI-Host": config.rapidApi.host,
+          },
+        }
+      );
+
+      setOutput(response.data.output);
+    } catch (error) {
+      setOutput(
+        `Error: ${
+          error instanceof Error ? error.message : "An unknown error occurred"
+        }`
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -47,10 +90,12 @@ const Home = () => {
         isDarkMode ? "dark bg-gray-900" : "bg-gray-50"
       }`}
     >
-      <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+      <Header
+        isDarkMode={isDarkMode}
+        toggleTheme={() => setIsDarkMode(!isDarkMode)}
+      />
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-8">
-          {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <h1
               className={`text-2xl font-bold ${
@@ -62,127 +107,46 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left Column */}
             <div className="space-y-6">
-              {/* Code Editor */}
-              <div
-                className={`rounded-lg overflow-hidden border ${
-                  isDarkMode ? "border-gray-700" : "border-gray-200"
-                }`}
-              >
-                <div
-                  className={`p-3 ${
-                    isDarkMode ? "bg-gray-800" : "bg-gray-100"
-                  } flex justify-between items-center`}
-                >
-                  <h2
-                    className={`font-semibold ${
-                      isDarkMode ? "text-white" : "text-gray-800"
-                    }`}
-                  >
-                    Code Editor
-                  </h2>
-                  <select
-                    value={selectedLanguage.name}
-                    onChange={(e) => {
-                      const lang = languages.find(
-                        (l) => l.name === e.target.value
-                      );
-                      if (lang) setSelectedLanguage(lang);
-                    }}
-                    className={`px-3 py-1 rounded-md ${
-                      isDarkMode
-                        ? "bg-gray-700 text-white border-gray-600"
-                        : "bg-white text-gray-800 border-gray-300"
-                    } border focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                  >
-                    {languages.map((lang) => (
-                      <option key={lang.name} value={lang.name}>
-                        {lang.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <CodeMirror
-                  value={code}
-                  height="400px"
-                  theme={isDarkMode ? dracula : githubLight}
-                  extensions={[selectedLanguage.extension()]}
-                  onChange={onChange}
-                />
-              </div>
-
-              {/* Input Box */}
-              <div
-                className={`rounded-lg overflow-hidden border ${
-                  isDarkMode ? "border-gray-700" : "border-gray-200"
-                }`}
-              >
-                <div
-                  className={`p-3 ${
-                    isDarkMode ? "bg-gray-800" : "bg-gray-100"
-                  }`}
-                >
-                  <h2
-                    className={`font-semibold ${
-                      isDarkMode ? "text-white" : "text-gray-800"
-                    }`}
-                  >
-                    Input
-                  </h2>
-                </div>
-                <textarea
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  className={`w-full h-32 p-4 resize-none focus:outline-none ${
-                    isDarkMode
-                      ? "bg-gray-800 text-gray-100"
-                      : "bg-white text-gray-800"
-                  }`}
-                  placeholder="Enter input here..."
-                />
-              </div>
+              <CodeEditorSection
+                code={code}
+                isDarkMode={isDarkMode}
+                selectedLanguage={selectedLanguage}
+                languages={languages}
+                onChange={setCode}
+                onLanguageChange={setSelectedLanguage}
+              />
+              <InputSection
+                input={input}
+                isDarkMode={isDarkMode}
+                onChange={setInput}
+              />
             </div>
-
-            {/* Right Column - Output */}
-            <div
-              className={`rounded-lg overflow-hidden border ${
-                isDarkMode ? "border-gray-700" : "border-gray-200"
-              }`}
-            >
-              <div
-                className={`p-3 ${isDarkMode ? "bg-gray-800" : "bg-gray-100"}`}
-              >
-                <h2
-                  className={`font-semibold ${
-                    isDarkMode ? "text-white" : "text-gray-800"
-                  }`}
-                >
-                  Output
-                </h2>
-              </div>
-              <div
-                className={`h-[calc(100%-48px)] p-4 ${
-                  isDarkMode
-                    ? "bg-gray-800 text-gray-100"
-                    : "bg-white text-gray-800"
-                }`}
-              >
-                {output || "Output will appear here..."}
-              </div>
-            </div>
+            <OutputSection
+              isDarkMode={isDarkMode}
+              loading={loading}
+              output={output}
+            />
           </div>
 
-          {/* Run Button */}
           <div className="mt-6">
             <button
-              onClick={() => {
-                // Add your code execution logic here
-                setOutput("Code execution result will appear here");
-              }}
-              className="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-colors"
+              onClick={executeCode}
+              disabled={loading}
+              className={`px-6 py-3 ${
+                loading ? "bg-gray-500" : "bg-green-600 hover:bg-green-700"
+              } text-white rounded-lg font-semibold transition-colors flex items-center gap-2`}
             >
-              Run Code ▶️
+              {loading ? (
+                <>
+                  <LoadingSpinner />
+                  Executing...
+                </>
+              ) : (
+                <>
+                  Run Code <span className="ml-1">▶️</span>
+                </>
+              )}
             </button>
           </div>
         </div>
