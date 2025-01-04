@@ -80,7 +80,9 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
               }`}
             >
-              {isDarkMode ? "🌞" : "🌙"}
+              {isDarkMode
+                ? "Switch to Light Mode 🌞"
+                : "Switch to Dark Mode 🌙"}
             </button>
           </div>
         </div>
