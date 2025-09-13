@@ -3,42 +3,50 @@ name: Deploy Next.js to GitHub Pages
 on:
   push:
     branches:
-      - main  # Deploy when pushing to main branch
+      - main
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write   # needed for pushing to gh-pages
+  pages: read       # needed to query the Pages API for the deployed URL
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout code
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
-      # 3. Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      # 4. Build project with env vars
-      - name: Build Next.js
-        run: npm run build
-        env:
-          NEXT_PUBLIC_RAPIDAPI_KEY: ${{ secrets.NEXT_PUBLIC_RAPIDAPI_KEY }}
-          NEXT_PUBLIC_RAPIDAPI_HOST: ${{ secrets.NEXT_PUBLIC_RAPIDAPI_HOST }}
-          NEXT_PUBLIC_RAPIDAPI_URL: ${{ secrets.NEXT_PUBLIC_RAPIDAPI_URL }}
+      - name: Build Next.js app
+        run: npm run build && npm run export
 
-      # 5. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
+
+      - name: Print deployed GitHub Pages URL
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y jq curl
+          OWNER="${{ github.repository_owner }}"
+          REPO="${{ github.event.repository.name }}"
+          echo "Querying Pages API for $OWNER/$REPO..."
+          resp=$(curl -sS -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                       -H "Accept: application/vnd.github+json" \
+                       "https://api.github.com/repos/$OWNER/$REPO/pages")
+          echo "Full API response:"
+          echo "$resp"
+          echo "--------------------------------"
+          echo "Deployed URL: $(echo "$resp" | jq -r '.html_url // "not found"')"
+          echo "Custom Domain (if set): $(echo "$resp" | jq -r '.cname // "none"')"
