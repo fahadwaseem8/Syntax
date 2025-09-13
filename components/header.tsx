@@ -62,7 +62,7 @@ const Header = ({ isDarkMode, toggleTheme }: HeaderProps) => {
                   isDarkMode ? "text-white" : "text-gray-800"
                 }`}
               >
-                Syntaxio
+                Syntax
               </span>
             </Link>
             <nav className="hidden space-x-2 md:flex">

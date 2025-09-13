@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
             }`}
           >
             <p>
-              This privacy policy applies to the Syntaxio app (hereby referred
+              This privacy policy applies to the Syntax app (hereby referred
               to as "Application") for web and mobile devices that was created
               by Fahad Waseem (hereby referred to as "Service Provider") as a
               Free service. This service is intended for use "AS IS".

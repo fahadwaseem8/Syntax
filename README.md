@@ -1,4 +1,4 @@
-# 🚀 Syntaxio - Online Code Editor
+# 🚀 Syntax - Online Code Editor
 
 A powerful, cloud-based code editor that lets you write, compile, and run code directly in your browser. Built with Next.js, TypeScript, and Tailwind CSS.
 
@@ -26,8 +26,8 @@ A powerful, cloud-based code editor that lets you write, compile, and run code d
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/fahadwaseem8/Syntaxio.git
-cd Syntaxio
+git clone https://github.com/fahadwaseem8/Syntax.git
+cd Syntax
 ```
 
 2. **Install dependencies**
