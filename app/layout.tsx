@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Syntaxio - Online Code Editor",
+  title: "Syntax - Online Code Editor",
   description: "A modern, collaborative online code editor for developers",
 };
 

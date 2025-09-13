@@ -25,7 +25,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
                 isDarkMode ? "text-white" : "text-gray-800"
               }`}
             >
-              Syntaxio
+              Syntax
             </span>
             <span
               className={`text-sm ${
@@ -39,7 +39,7 @@ const Footer = ({ isDarkMode }: FooterProps) => {
           {/* Links */}
           <div className="mt-4 flex space-x-6 md:mt-0">
             <a
-              href="https://github.com/fahadwaseem8/Syntaxio"
+              href="https://github.com/fahadwaseem8/Syntax"
               target="_blank"
               rel="noopener noreferrer"
               className={`text-sm ${
