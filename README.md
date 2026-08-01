@@ -56,12 +56,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can also deploy to Cloudflare Workers using OpenNext:
-
-```bash
-npm run deploy
-```
-
 ## 📝 Usage
 
 1. Select your preferred programming language
@@ -80,8 +74,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) team for the amazing framework
-- [Cloudflare](https://cloudflare.com/) for the hosting platform
-- [OpenNext](https://opennext.js.org/) for the Next.js adapter
+- [Vercel](https://vercel.com/) for the hosting platform
 - All contributors who help improve this project
 
 ---
