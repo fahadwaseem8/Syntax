@@ -1,82 +1,71 @@
-# 🚀 Syntax - Online Code Editor
+# Syntax - Online Code Editor
 
-A powerful, cloud-based code editor that lets you write, compile, and run code directly in your browser. Built with Next.js, TypeScript, and Tailwind CSS.
+A cloud-based code editor to write, compile, and run code directly in your browser. Built with Next.js, TypeScript, and Tailwind CSS.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-## ✨ Features
+## Features
 
-- 💻 **Multiple Language Support** - Write and execute code in JavaScript, Python, C++, Java, and more
-- ⚡ **Real-Time Compilation** - Instantly compile and run your code with our cloud-based compiler
-- 🌓 **Dark/Light Mode** - Switch between themes for comfortable coding experience
-- 📚 **Code Examples** - Built-in "Hello World" examples for each supported language
-- 🎨 **Modern UI** - Clean and responsive interface built with Tailwind CSS
-- 🔒 **Type-Safe** - Written in TypeScript for better development experience
+- **Multiple Language Support**: JavaScript, Python, C++, Java, Go, and more.
+- **Real-Time Compilation**: Instantly compile and execute your code.
+- **Dark/Light Mode**: Switchable themes for a comfortable coding experience.
+- **Modern UI**: Clean and responsive interface.
+- **Type-Safe**: Written in TypeScript.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- [Next.js](https://nextjs.org/) - React Framework
-- [TypeScript](https://www.typescriptlang.org/) - Type-Safe JavaScript
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-First CSS
-- [CodeMirror](https://codemirror.net/) - Code Editor Component
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [CodeMirror](https://codemirror.net/)
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **Clone the repository**
-
 ```bash
 git clone https://github.com/fahadwaseem8/Syntax.git
 cd Syntax
 ```
 
 2. **Install dependencies**
-
 ```bash
 npm install
-# or
-yarn install
 ```
 
 3. **Set up environment variables**
-
-Create a `.env.local` file in the root directory:
-
+Create a `.env` file in the root directory:
 ```env
-# Add your environment variables here
+RAPIDAPI_KEY=your_api_key_here
+RAPIDAPI_HOST=code-compiler10.p.rapidapi.com
 ```
 
 4. **Run the development server**
-
 ```bash
 npm run dev
-# or
-yarn dev
 ```
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-## 📝 Usage
+1. Select your preferred programming language.
+2. Write or paste your code.
+3. Click "Run" to execute.
+4. View the output in the results panel.
 
-1. Select your preferred programming language
-2. Write or paste your code in the editor
-3. Click the "Run" button to execute your code
-4. View the output in the results panel
+## Contributing
 
-## 🤝 Contributing
+Contributions, issues, and feature requests are welcome. Feel free to check the [issues page](https://github.com/fahadwaseem8/Syntax/issues).
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/online-code-editor/issues).
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👏 Acknowledgments
+## Acknowledgments
 
-- [Next.js](https://nextjs.org/) team for the amazing framework
-- [Vercel](https://vercel.com/) for the hosting platform
-- All contributors who help improve this project
+- [Next.js](https://nextjs.org/)
+- [Vercel](https://vercel.com/)
 
 ---
 
-Made with ❤️ by [Fahad Waseem](https://github.com/fahadwaseem8)
+Made by [Fahad Waseem](https://github.com/fahadwaseem8)
