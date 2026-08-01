@@ -7,11 +7,12 @@ function requireEnv(name: string): string {
 }
 
 export function config() {
+  const host = requireEnv("RAPIDAPI_HOST");
   return {
     rapidApi: {
       key: requireEnv("RAPIDAPI_KEY"),
-      host: requireEnv("RAPIDAPI_HOST"),
-      url: requireEnv("RAPIDAPI_URL"),
+      host,
+      url: `https://${host}/`,
     },
   };
 }

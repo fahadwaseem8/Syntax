@@ -14,7 +14,6 @@ import { InputSection } from "@/components/InputSection";
 import { OutputSection } from "@/components/OutputSection";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Language } from "@/types";
-import { config } from "@/config/env";
 import Logo from "@/components/Logo";
 
 const getHelloWorldExample = (languageName: string): string => {

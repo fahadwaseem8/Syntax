@@ -1,11 +1,5 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  env: {
-    RAPIDAPI_KEY: process.env.RAPIDAPI_KEY,
-    RAPIDAPI_HOST: process.env.RAPIDAPI_HOST,
-    RAPIDAPI_URL: process.env.RAPIDAPI_URL,
-  },
-};
+const nextConfig: NextConfig = {};
 
 export default nextConfig;
